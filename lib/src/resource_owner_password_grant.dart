@@ -4,7 +4,7 @@
 
 import 'dart:async';
 
-import 'package:http/http.dart' as http;
+import 'package:http/browser_client.dart' as httpWeb;
 import 'package:http_parser/http_parser.dart';
 
 import 'client.dart';
@@ -51,7 +51,7 @@ Future<Client> resourceOwnerPasswordGrant(
     Iterable<String> scopes,
     bool basicAuth = true,
     CredentialsRefreshedCallback onCredentialsRefreshed,
-    http.Client httpClient,
+    httpWeb.BrowserClient httpClient,
     String delimiter,
     Map<String, dynamic> getParameters(
         MediaType contentType, String body)}) async {
@@ -78,7 +78,7 @@ Future<Client> resourceOwnerPasswordGrant(
   if (scopes != null && scopes.isNotEmpty)
     body['scope'] = scopes.join(delimiter);
 
-  if (httpClient == null) httpClient = new http.Client();
+  if (httpClient == null) httpClient = new httpWeb.BrowserClient();
   var response = await httpClient.post(authorizationEndpoint,
       headers: headers, body: body);
 

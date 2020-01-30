@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:http/browser_client.dart' as httpWeb;
 import 'package:http_parser/http_parser.dart';
 
 import 'authorization_exception.dart';
@@ -89,10 +90,10 @@ class Client extends http.BaseClient {
       this.secret,
       CredentialsRefreshedCallback onCredentialsRefreshed,
       bool basicAuth = true,
-      http.Client httpClient})
+      httpWeb.BrowserClient httpClient})
       : _basicAuth = basicAuth,
         _onCredentialsRefreshed = onCredentialsRefreshed,
-        _httpClient = httpClient == null ? new http.Client() : httpClient {
+        _httpClient = httpClient == null ? new httpWeb.BrowserClient() : httpClient {
     if (identifier == null && secret != null) {
       throw new ArgumentError("secret may not be passed without identifier.");
     }
